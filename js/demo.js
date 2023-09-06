@@ -1,5 +1,3 @@
-const PYTHON_BACKEND_URL = 'https://audioinfo.damo1884.repl.co/info';
-// const PYTHON_BACKEND_URL = 'http://localhost:3000/info';
 var AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
 context = new AudioContext();
 let sumFreq = 0;
