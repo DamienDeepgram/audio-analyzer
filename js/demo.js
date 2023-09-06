@@ -49,37 +49,6 @@ audio.controls = true;
 audio.onpause = function(){
   window.cancelAnimationFrame(animationID);
 }
-loadInfo();
-
-function loadInfo(){
-  // getAudioInfo(currentFile);
-
-  GetFileObjectFromURL(currentFile, function (file) {
-    var formData = new FormData();
-    formData.append('music_file', file, file.name);
-    document.getElementById('info').innerHTML = 'Loading...';
-    $.ajax({
-      type: "POST",
-      url: PYTHON_BACKEND_URL,
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: (result) => {
-        console.log(result);
-        document.getElementById('info').innerHTML = JSON.stringify(result, null, 2).replace('{\n', '').replace('\n}', '').replaceAll('  "', '').replaceAll('"', '').replaceAll(',', '');;
-        sampleRateScore = (result.sample_rate / qualityRanges.sampleRate.max) * 100;
-        bitRateScore = (result.bitrate / qualityRanges.bitrate.max) * 100;
-        document.getElementById('score').innerHTML = `Sample Rate: ${sampleRateScore.toFixed()}/100
-Bitrate: ${bitRateScore.toFixed()}/100
-Frequency Range: ${frequencyScore.toFixed()}/100`;
-        document.getElementById('total').innerHTML = ((sampleRateScore+bitRateScore+frequencyScore)/3).toFixed(0);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  });
-}
 
 var tmpContext;
 var bufferLoader;
